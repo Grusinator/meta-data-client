@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 gcl = "*"
+requests = "*"
 
 [dev-packages]
 pep8 = "*"
