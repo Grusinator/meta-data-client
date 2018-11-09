@@ -1,0 +1,29 @@
+{
+    "python.pythonPath": "C:\\Users\\William\\.virtualenvs\\meta-data-client-zJXgL_RC",
+    
+    "python.linting.pep8Enabled": true,
+    "python.linting.pylintPath": "C:\\Users\\William\\.virtualenvs\\meta-data-client-zJXgL_RC\\Scripts\\pylint.exe",    
+    "python.linting.pylintArgs": [
+            "--load-plugins",
+            "pylint_django"
+        ],
+    "python.linting.pylintEnabled": true,
+
+    "[python]": {
+        "editor.formatOnSave": true
+    },
+
+    "python.unitTest.unittestEnabled": true,
+    "python.unitTest.pyTestEnabled": true,
+    "python.unitTest.nosetestsEnabled": false,
+    
+    "python.unitTest.autoTestDiscoverOnSaveEnabled" : true,
+    "python.unitTest.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "*test*.py"
+    ]
+
+}
