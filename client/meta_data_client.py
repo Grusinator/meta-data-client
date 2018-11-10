@@ -3,6 +3,9 @@ from gql import gql, Client
 import requests
 
 from client.gql_requests.gql_requests import GqlRequests
+from client.create_instances import CreateInstances
+
+from .objects import *
 
 
 class MetaDataClient:
@@ -107,6 +110,10 @@ class MetaDataClient:
         kwargs.pop("self")
         query = GqlRequests.get_all_instances
         query = self.replace_args(query, **kwargs)
-        res = self.run_query(query)
-        res = self.clean_gql_structure(res)
-        return res
+        data = self.run_query(query)
+        data = self.clean_gql_structure(data)
+
+        data = data["data"]["allObjectInstances"]
+        objects = [ObjectInstance(**d) for d in data]
+
+        return objects

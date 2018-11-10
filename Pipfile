@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 gcl = "*"
 requests = "*"
+pandas = "*"
+matplotlib = "*"
 
 [dev-packages]
 pep8 = "*"

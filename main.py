@@ -2,6 +2,8 @@
 
 from client.meta_data_client import MetaDataClient
 
+from client.objects import Structure, ObjectInstance
+
 
 def main():
 
@@ -11,7 +13,7 @@ def main():
 
     client.get_user()
 
-    client.get_time_series("activities", "distance", "start_date")
+    objects = client.get_time_series("activities", "distance", "start_date")
 
 
 if __name__ == '__main__':

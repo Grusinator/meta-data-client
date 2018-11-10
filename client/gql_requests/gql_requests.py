@@ -29,6 +29,9 @@ class GqlRequests:
                 edges {
                     node {
                     value
+                    base{
+                        label
+                    }
                     }
                 }
                 }
@@ -38,7 +41,7 @@ class GqlRequests:
                     value
                     base{
                         label
-                        }
+                    }
                     }
                 }
                 }
