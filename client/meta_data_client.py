@@ -2,6 +2,8 @@ from gql.transport.requests import RequestsHTTPTransport
 from gql import gql, Client
 import requests
 
+from client.gql_requests.gql_requests import GqlRequests
+
 
 class MetaDataClient:
     def __init__(self, url):
@@ -34,8 +36,6 @@ class MetaDataClient:
 
         self._client.transport.headers = {'Authorization': 'JWT %s' % key}
 
-    # A simple function to use requests.post to make the API call. Note the json= section.
-
     def update_token(self, token, token_type="JWT"):
         self.headers["Authorization"] = "%s %s" % (token_type, token)
 
@@ -65,22 +65,48 @@ class MetaDataClient:
         token = result["data"]["tokenAuth"]["token"]
         self.update_token(token)
 
+    def replace_args(self, query, **kwargs):
+        for key, arg in kwargs.items():
+            query = query.replace("{{%s}}" % key, self.wrap_with(arg))
+        return query
+
     def get_user(self):
-        query = """
-        query userqueue{
-	
-            profile{
-                language
-                birthdate
-                audioThreshold
-                user {
-                    username
-                    email
-                    lastName
-                    firstName
-            }
-            }
-        }
-        """
+        query = GqlRequests.get_user_info
         result = self.run_query(query)
         print(result)
+
+    def clean_gql_structure(self, input_data):
+        if input_data is None:
+            return
+        if isinstance(input_data, list):
+
+            cleaned_list = []
+            for elm in input_data:
+                if isinstance(elm, dict):
+                    if "node" in elm.keys():
+                        elm = elm["node"]
+
+                elm = self.clean_gql_structure(elm)
+                cleaned_list.append(elm)
+
+            return cleaned_list
+
+        elif isinstance(input_data, dict):
+            for key, value in input_data.items():
+
+                # if any edges appear skip one level
+                if isinstance(value, dict):
+                    if "edges" in value.keys():
+                        value = value["edges"]
+                input_data[key] = self.clean_gql_structure(value)
+
+        return input_data
+
+    def get_time_series(self, object_label, float_label, datetime_label):
+        kwargs = dict(locals())
+        kwargs.pop("self")
+        query = GqlRequests.get_all_instances
+        query = self.replace_args(query, **kwargs)
+        res = self.run_query(query)
+        res = self.clean_gql_structure(res)
+        return res
