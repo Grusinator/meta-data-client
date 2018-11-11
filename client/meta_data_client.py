@@ -3,7 +3,6 @@ from gql import gql, Client
 import requests
 
 from client.gql_requests.gql_requests import GqlRequests
-from client.create_instances import CreateInstances
 
 from .objects import *
 
@@ -117,3 +116,40 @@ class MetaDataClient:
         objects = [ObjectInstance(**d) for d in data]
 
         return objects
+
+    def get_all_objects(self, schema_label):
+        kwargs = dict(locals())
+        kwargs.pop("self")
+        query = GqlRequests.get_all_objects
+        query = self.replace_args(query, **kwargs)
+        data = self.run_query(query)
+        data = self.clean_gql_structure(data)
+
+        data = data["data"]["allObjects"]
+        objects = [Object(**d) for d in data]
+
+        return objects
+
+    def identify_data_from_provider(self, provider_name, endpoint):
+        kwargs = dict(locals())
+        kwargs.pop("self")
+        query = GqlRequests.identify_data_from_provider
+        query = self.replace_args(query, **kwargs)
+        data = self.run_query(query)
+
+    def identify_schema_from_provider(self, provider_name, endpoint):
+        kwargs = dict(locals())
+        kwargs.pop("self")
+        query = GqlRequests.identify_schema_from_provider
+        query = self.replace_args(query, **kwargs)
+        data = self.run_query(query)
+
+    def export_schema_to_rdf(self, schema_label):
+        kwargs = dict(locals())
+        kwargs.pop("self")
+        query = GqlRequests.export_schema_to_rdf
+        query = self.replace_args(query, **kwargs)
+        data = self.run_query(query)
+        return data["data"]["exportSchema"]["visualizationUrl"]
+
+        get_all_objects

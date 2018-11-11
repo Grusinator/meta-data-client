@@ -16,17 +16,32 @@ from client.meta_data_client import MetaDataClient
 cli = MetaDataClient("http://localhost:8000/graphql/")
 cli.authenticate("test", "test1234")
 
-objects = cli.get_time_series("activities", "distance", "start_date")
+
+# %%
+metaobj = cli.get_all_objects(schema_label="strava")
+
+# %%
+objects = cli.get_time_series("activities", "duration", "start_date")
 # %%
 len(objects)
+
+# %%
+
+url = cli.export_schema_to_rdf("strava")
+
+url
 
 # %%
 # Data for plotting
 
 series = [(
-    datetime(obj.datetimeAttributes[0].value),
+    obj.datetimeAttributes[0].value,
     obj.floatAttributes[0].value
-) for obj in filter(lambda x: hasattr(x, "datetimeAttributes"), objects)]
+) for obj in objects]
+
+# filter(
+#     lambda x: hasattr(x, "datetimeAttributes") and
+#     hasattr(x, "floatAttributes"),
 
 # %%
 
@@ -45,3 +60,7 @@ ax.set(xlabel='time (s)', ylabel='distance',
 ax.grid()
 
 plt.show()
+
+# %%
+
+series[5:]
