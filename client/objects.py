@@ -36,8 +36,8 @@ class Attribute(Structure):
     _fields = [
         ("label", str),
         ("description", str),
-        ("dataunit", str),
-        ('datatype', str),
+        ("data_unit", str),
+        ('data_type', str),
         ('id', str),
     ]
 
