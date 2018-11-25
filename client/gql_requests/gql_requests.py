@@ -80,7 +80,7 @@ class GqlRequests:
                 id
                 label
                 description
-                datatype
+                data_type
                 dataunit
             }
             }
