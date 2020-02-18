@@ -8,6 +8,8 @@ gql = "*"
 requests = "*"
 pandas = "*"
 matplotlib = "*"
+jupyter = "*"
+python-dotenv = "*"
 
 [dev-packages]
 pep8 = "*"
