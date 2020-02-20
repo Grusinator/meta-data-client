@@ -19,7 +19,7 @@ get_dummy_user = """
 """
 
 authorize = """
-    mutation LoginMutation($username: String!, $password: String!) {
+    mutation authorize($username: String!, $password: String!) {
         tokenAuth(username: $username, password: $password) {
             token
         }

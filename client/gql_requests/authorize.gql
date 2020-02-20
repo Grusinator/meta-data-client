@@ -1,0 +1,5 @@
+mutation authorize($username: String!, $password: String!) {
+    tokenAuth(username: $username, password: $password) {
+        token
+    }
+}
