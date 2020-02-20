@@ -1,7 +1,7 @@
 from gql import gql, Client
 from gql.transport.requests import RequestsHTTPTransport
 
-from client import gql_requests
+from metadataclient import gql_requests
 
 
 class MetaDataClient:

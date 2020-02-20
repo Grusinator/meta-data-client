@@ -11,7 +11,7 @@ import numpy as np
 from datetime import datetime
 
 # %%
-from client.meta_data_client import MetaDataClient
+from metadataclient.meta_data_client import MetaDataClient
 
 cli = MetaDataClient("http://localhost:8000/graphql/")
 cli.authenticate("test", "test1234")

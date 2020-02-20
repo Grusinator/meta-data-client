@@ -1,7 +1,7 @@
 import unittest
 
-from client.gql_requests.user import get_dummy_user
-from client.meta_data_client import MetaDataClient
+from metadataclient.gql_requests.user import get_dummy_user
+from metadataclient.meta_data_client import MetaDataClient
 from load_env import *
 
 
